@@ -1,0 +1,8 @@
+node_modules
+.idea
+out
+testing
+archive
+*.iml
+*.log
+

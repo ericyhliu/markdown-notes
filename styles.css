@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+
+*:focus {
+    outline: none;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#markdown-editor {
+    font-family: 'Roboto Mono', monospace;
+    border-width: 1px;
+    border-style: solid;
+    overflow-y: scroll !important;
+    height: 90vh;
+    padding: 0.5em;
+    white-space: pre-wrap;
+}
+
+#preview {
+    border-width: 1px;
+    border-style: solid;
+    height: 90vh;
+    padding: 0.5em;
+    overflow-y: scroll;
+}
