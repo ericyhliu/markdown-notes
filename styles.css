@@ -19,10 +19,6 @@ html, body {
     font-size: 1.25em;
 }
 
-.container-main {
-    margin: 2em;
-}
-
 .card {
     margin-top: 0.5em;
     height: 12em;
@@ -33,6 +29,31 @@ html, body {
     height: 0.9em;
     width: 100% !important;
 }
+
+.autosave-info {
+    margin-right: 2em;
+}
+
+.container-main {
+    margin-top: 2em;
+}
+
+.container-markdown-editor {
+    background-color: #9FA8DA;
+    height: 100%;
+    padding-top: 2em;
+}
+
+.container-preview {
+    background-color: #E0E0E0;
+    height: 100%;
+    padding-top: 2em;
+}
+
+
+
+
+
 
 #markdown-editor {
     font-family: 'Roboto Mono', monospace;
@@ -68,4 +89,26 @@ html, body {
     padding: 0;
     background-color: transparent;
     border-radius: 0;
+}
+
+#preview blockquote {
+    border-left-color: #90CAF9;
+    border-left-style: solid;
+    border-left-width: 5px;
+    padding: 0.5em;
+
+/* 
+    background-color: #BBDEFB;
+    color: #000;
+    padding: 0.25em;
+    border-radius: 0.25em; */
+}
+
+.container-info-bar {
+    position: fixed;
+    bottom: 0;
+    height: 1.5em;
+    background-color: #1565C0;
+    color: #fff;
+    font-size: 0.8em;
 }

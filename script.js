@@ -2,11 +2,13 @@ $(function() {
     
     const TAB_KEY = 9;
     const ENTER_KEY = 13;
+    const SPACE_CHAR = ' ';
+    const NEWLINE_CHAR = '\n';
 
     // Autosave editor on page load:
     let lastAutosaveTime = moment();
     autosaveEditor(true);
-    updateFileSize(0);
+    updateInfoBar();
 
     // Initialize Marked options:
     marked.setOptions({
@@ -37,6 +39,10 @@ $(function() {
 
         setTimeout(function() {
             autosaveEditor();
+        }, 0);
+
+        setTimeout(function() {
+            updateInfoBar();
         }, 0);
     });
 
@@ -86,7 +92,18 @@ $(function() {
     }
 
     function resetSearchArea() {
-        // test
         console.log('reset');
+    }
+
+    function updateInfoBar() {
+        const markdownRawText = document.getElementById("markdown-editor").innerText;
+        let numWords = markdownRawText.length == 0 ? 0 : markdownRawText.trim().split(/\s+/).length;
+        let numLines = markdownRawText.split(/\r\n|\r|\n/).length;
+        numLines = numLines >= 3 ? --numLines : numLines;
+        let numBytes = markdownRawText.length;
+
+        $("#info-words").text(`${numWords} ${(numWords == 1 ? 'word' : 'words')}`);
+        $("#info-lines").text(`${numLines} ${(numLines == 1 ? 'line' : 'lines')}`);
+        $("#info-bytes").text(`${numBytes} ${(numBytes == 1 ? 'byte' : 'bytes')}`);
     }
 });

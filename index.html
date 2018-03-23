@@ -27,7 +27,7 @@
     <body>
            
         <!-- Navbar -->
-        <nav class="mb-1 navbar navbar-expand-lg navbar-dark primary-color">
+        <!-- <nav class="mb-1 navbar fixed-top navbar-expand-lg navbar-dark primary-color">
             <a class="navbar-brand" href="#">Markdown Notes</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,41 +40,91 @@
                     </li>
                 </ul>
             </div>
-        </nav>
+        </nav> -->
 
-         <!-- 
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-6">
-                    <h1>Markdown Editor</h1>
-                    <div id="markdown-editor" contenteditable="true" autofocus></div>
-                </div>
+        <nav class="mb-1 navbar fixed-top navbar-expand-lg navbar-dark indigo darken-3">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-3">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-bold"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-italic"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-strikethrough"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-list-ul"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-list-ol"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-align-center"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-quote-right"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-code"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            <i class="fa fa-link"></i>
+                        </a>
+                    </li>
+                </ul>
 
-                <div class="col-md-6">
-                    <h1>Live Preview</h1>
-                    <div id="preview"></div>
-                </div>
+                <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item">
+                        <span class="navbar-text white-text autosave-info">
+                            Last autosave: <span id="autosave-datetime"></span>
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light">
+                            Done
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </div> 
-        -->
-
-        
+        </nav>
 
         <div class="container-fluid container-main">
             <div class="row">
-                <div class="col-md-6">
-                    <h3>Markdown Editor</h3>
-                    <span>Last autosave: <span id="autosave-datetime"></span></span>
-                    <div id="markdown-editor" class="card card-body" contenteditable="true" autofocus></div>
+                <div class="col-md-6 container-markdown-editor">
+                    <div id="markdown-editor" class="" contenteditable="true" autofocus></div>
                 </div>
-
-                <div class="col-md-6">
-                    <h3>Live Preview</h3>
-                    <span>File size: <span id="file-size"></span>
-                    <div id="preview" class="card card-body"></div>
+                <div class="col-md-6 container-preview">
+                    <div id="preview" class=""></div>
                 </div>
             </div>
-        </div> 
+        </div>
+
+        <div class="container-fluid container-info-bar">
+            <div class="row">
+                <div class="col-md-12">
+                    Markdown &emsp; UTF-8 &emsp; <span class="info-text" id="info-words"></span> <span class="info-text" id="info-lines"></span> <span class="info-text" id="info-bytes"></span>
+                </div>
+            </div>
+        </div>
         
         <!--
         <div class="container-fluid container-main">
