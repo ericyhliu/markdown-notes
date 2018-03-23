@@ -65,6 +65,23 @@ $(function() {
         }
     });
 
+    const mapInfoToSnipper = {
+        "editor-bold": "****",
+        "editor-italic": "__",
+        "editor-strikethrough": "~~~~",
+        "editor-list-ul": "- ",
+        "editor-list-ol": "1. ",
+        "editor-align-center": "&lt;center&gt;&lt;/center&gt;",
+        "editor-quote": "> ",
+        "editor-code": "```\n```",
+        "editor-link": "[]()"
+    };
+
+    $(".info-item").click(function(e) {
+        $("#markdown-editor").focus();
+        insertTextAtCursor(mapInfoToSnipper[this.id]);
+    });
+
     function autosaveEditor(override) {
         const currentTime = moment();
         
@@ -105,5 +122,39 @@ $(function() {
         $("#info-words").text(`${numWords} ${(numWords == 1 ? 'word' : 'words')}`);
         $("#info-lines").text(`${numLines} ${(numLines == 1 ? 'line' : 'lines')}`);
         $("#info-bytes").text(`${numBytes} ${(numBytes == 1 ? 'byte' : 'bytes')}`);
+    }
+
+    function insertTextAtCursor(text, charCount) {
+        var sel, range;
+        if (window.getSelection) {
+            // IE9 and non-IE
+            sel = window.getSelection();
+            if (sel.getRangeAt && sel.rangeCount) {
+                range = sel.getRangeAt(0);
+                range.deleteContents();
+    
+                // Range.createContextualFragment() would be useful here but is
+                // non-standard and not supported in all browsers (IE9, for one)
+                var el = document.createElement("div");
+                el.innerHTML = text;
+                var frag = document.createDocumentFragment(), node, lastNode;
+                while ( (node = el.firstChild) ) {
+                    lastNode = frag.appendChild(node);
+                }
+                range.insertNode(frag);
+                
+                // Preserve the selection
+                if (lastNode) {
+                    range = range.cloneRange();
+                    range.setStartAfter(lastNode);
+                    range.collapse(true);
+                    sel.removeAllRanges();
+                    sel.addRange(range);
+                }
+            }
+        } else if (document.selection && document.selection.type != "Control") {
+            // IE < 9
+            document.selection.createRange().pasteHTML(text);
+        }
     }
 });
