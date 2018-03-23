@@ -26,8 +26,7 @@
     </head>
     <body>
            
-        <!-- Navbar -->
-        <!-- <nav class="mb-1 navbar fixed-top navbar-expand-lg navbar-dark primary-color">
+        <nav class="mb-1 navbar fixed-top navbar-expand-lg navbar-dark indigo darken-3">
             <a class="navbar-brand" href="#">Markdown Notes</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,100 +39,15 @@
                     </li>
                 </ul>
             </div>
-        </nav> -->
-
-        <nav class="mb-1 navbar fixed-top navbar-expand-lg navbar-dark indigo darken-3">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent-3">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-bold"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-italic"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-strikethrough"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-list-ul"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-list-ol"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-align-center"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-quote-right"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-code"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            <i class="fa fa-link"></i>
-                        </a>
-                    </li>
-                </ul>
-
-                <ul class="navbar-nav ml-auto nav-flex-icons">
-                    <li class="nav-item">
-                        <span class="navbar-text white-text autosave-info">
-                            Last autosave: <span id="autosave-datetime"></span>
-                        </span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect waves-light">
-                            Done
-                        </a>
-                    </li>
-                </ul>
-            </div>
         </nav>
 
-        <div class="container-fluid container-main">
-            <div class="row">
-                <div class="col-md-6 container-markdown-editor">
-                    <div id="markdown-editor" class="" contenteditable="true" autofocus></div>
-                </div>
-                <div class="col-md-6 container-preview">
-                    <div id="preview" class=""></div>
-                </div>
-            </div>
-        </div>
 
-        <div class="container-fluid container-info-bar">
-            <div class="row">
-                <div class="col-md-12">
-                    Markdown &emsp; UTF-8 &emsp; <span class="info-text" id="info-words"></span> <span class="info-text" id="info-lines"></span> <span class="info-text" id="info-bytes"></span>
-                </div>
-            </div>
-        </div>
-        
-        <!--
         <div class="container-fluid container-main">
-
             <div id="container-header" class="row container-header">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
-                    <h1 class="header-title">Test Header</h1>
-                    <p class="header-subtitle">Test Subheader</p>
+                    <h1 class="header-title">Welcome to Markdown Notes!</h1>
+                    <p class="header-subtitle">Create, edit and organize your notes with ease.</p>
                 </div>
                 <div class="col-md-1"></div>
             </div>
@@ -141,13 +55,12 @@
             <div id="container-menu" class="row container-menu">
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
-                    <button id="btn-new-note" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginAvatar"><i class="fa fa-plus mr-1"></i>&nbsp;&nbsp;Add New Note</button>
+                    <button id="btn-new-note" class="btn btn-indigo" data-toggle="modal" data-target="#modalLoginAvatar"><i class="fa fa-plus mr-1"></i>&nbsp;&nbsp;Add New Note</button>
                 </div>
                 <div class="col-md-7">
-
-                    <form class="form-inline md-form form-sm">
-                        <input id="search-bar" class="form-control form-control-sm search-bar" type="text" placeholder="Search" aria-label="Search">
-                    </form>
+                    <div class="md-form active-pink active-pink-2 mb-3">
+                        <input id="search-bar" class="form-control search-bar" type="text" placeholder="Search" aria-label="Search">
+                    </div>
                 </div>
                 <div class="col-md-1"></div>
             </div>
@@ -197,14 +110,13 @@
                             <input id="input-new-note" type="text" class="form-control form-control-sm validate ml-0" placeholder="Enter new note title...">
                         </div>
                         <div class="text-center mt-4">
-                            <button id="" class="btn btn-primary">Create New Note</button>
+                            <button id="btn-create-new-note" class="btn btn-indigo">Create New Note</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>-->
+        </div>
 
-        <!-- Scripts -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
     </body>
 </html>

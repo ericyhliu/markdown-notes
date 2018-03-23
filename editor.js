@@ -1,7 +1,3 @@
-
-
-
-/*
 $(function() {
     
     const TAB_KEY = 9;
@@ -110,4 +106,4 @@ $(function() {
         $("#info-lines").text(`${numLines} ${(numLines == 1 ? 'line' : 'lines')}`);
         $("#info-bytes").text(`${numBytes} ${(numBytes == 1 ? 'byte' : 'bytes')}`);
     }
-});*/
+});

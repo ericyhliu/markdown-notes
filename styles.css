@@ -16,7 +16,9 @@ html, body {
 }
 
 .header-subtitle {
-    font-size: 1.25em;
+    font-weight: 400;
+    font-size: 1em;
+    color: #757575;
 }
 
 .card {
@@ -35,19 +37,23 @@ html, body {
 }
 
 .container-main {
+    margin-top: 8em;
+}
+
+.container-editor {
     margin-top: 2em;
 }
 
 .container-markdown-editor {
-    background-color: #9FA8DA;
+    background-color: #E8EAF6;
     height: 100%;
-    padding-top: 2em;
+    padding-top: 3em;
 }
 
 .container-preview {
-    background-color: #E0E0E0;
+    background-color: #F5F5F5;
     height: 100%;
-    padding-top: 2em;
+    padding-top: 3em;
 }
 
 
