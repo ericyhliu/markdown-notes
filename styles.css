@@ -11,10 +11,33 @@ html, body {
     padding: 0;
 }
 
+.header-title {
+    font-size: 2em;
+}
+
+.header-subtitle {
+    font-size: 1.25em;
+}
+
+.container-main {
+    margin: 2em;
+}
+
+.card {
+    margin-top: 0.5em;
+    height: 12em;
+    border-radius: 0.125em !important;
+}
+
+.search-bar {
+    height: 0.9em;
+    width: 100% !important;
+}
+
 #markdown-editor {
     font-family: 'Roboto Mono', monospace;
-    border-width: 1px;
-    border-style: solid;
+    font-size: 1em;
+    overflow-x: scroll !important;
     overflow-y: scroll !important;
     height: 90vh;
     padding: 0.5em;
@@ -22,9 +45,27 @@ html, body {
 }
 
 #preview {
-    border-width: 1px;
-    border-style: solid;
     height: 90vh;
     padding: 0.5em;
     overflow-y: scroll;
+}
+
+#preview code {
+    background-color: #3949AB;
+    color: #fff;
+    padding: 0.25em;
+    border-radius: 0.25em;
+}
+
+#preview pre {
+    background-color: #C5CAE9;
+    padding: 0.5em;
+    border-radius: 0.25em;
+}
+
+#preview pre code {
+    color: #000;
+    padding: 0;
+    background-color: transparent;
+    border-radius: 0;
 }

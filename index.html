@@ -6,7 +6,12 @@
 
         <link rel="stylesheet" href="styles.css">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/css/mdb.min.css">
+        
+        <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         
@@ -14,12 +19,30 @@
             MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
         </script>
         <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.21.0/moment.min.js"></script>
         <script src="marked.min.js"></script>
         <script src="script.js"></script>
         <title>Markdown Notes</title>
     </head>
     <body>
+           
+        <!-- Navbar -->
+        <nav class="mb-1 navbar navbar-expand-lg navbar-dark primary-color">
+            <a class="navbar-brand" href="#">Markdown Notes</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link waves-effect waves-light" href="#">
+                            <i class="fa fa-gear"></i> Settings</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+         <!-- 
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-6">
@@ -32,6 +55,106 @@
                     <div id="preview"></div>
                 </div>
             </div>
+        </div> 
+        -->
+
+        
+
+        <div class="container-fluid container-main">
+            <div class="row">
+                <div class="col-md-6">
+                    <h3>Markdown Editor</h3>
+                    <span>Last autosave: <span id="autosave-datetime"></span></span>
+                    <div id="markdown-editor" class="card card-body" contenteditable="true" autofocus></div>
+                </div>
+
+                <div class="col-md-6">
+                    <h3>Live Preview</h3>
+                    <span>File size: <span id="file-size"></span>
+                    <div id="preview" class="card card-body"></div>
+                </div>
+            </div>
+        </div> 
+        
+        <!--
+        <div class="container-fluid container-main">
+
+            <div id="container-header" class="row container-header">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <h1 class="header-title">Test Header</h1>
+                    <p class="header-subtitle">Test Subheader</p>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+            <div id="container-menu" class="row container-menu">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    <button id="btn-new-note" class="btn btn-primary" data-toggle="modal" data-target="#modalLoginAvatar"><i class="fa fa-plus mr-1"></i>&nbsp;&nbsp;Add New Note</button>
+                </div>
+                <div class="col-md-7">
+
+                    <form class="form-inline md-form form-sm">
+                        <input id="search-bar" class="form-control form-control-sm search-bar" type="text" placeholder="Search" aria-label="Search">
+                    </form>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+
+
+            <div id="container-cards-outer" class="row container-cards">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+
+                    <div id="cards-row" class="row">
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Test</h4>
+                                    <p class="card-text">Test</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                                <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Test</h4>
+                                            <p class="card-text">Test</p>
+                                        </div>
+                                    </div>
+                        </div>
+                        <div class="col-md-4">
+                                <div class="card">
+                                        <div class="card-body">
+                                            <h4 class="card-title">Test</h4>
+                                            <p class="card-text">Test</p>
+                                        </div>
+                                    </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
         </div>
+
+        <div class="modal fade" id="modalLoginAvatar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
+                <div class="modal-content">                    
+                    <div class="modal-body text-left mb-1"> 
+                        <h3>Add New Note</h3>                        
+                        <div class="md-form ml-0 mr-0">
+                            <input id="input-new-note" type="text" class="form-control form-control-sm validate ml-0" placeholder="Enter new note title...">
+                        </div>
+                        <div class="text-center mt-4">
+                            <button id="" class="btn btn-primary">Create New Note</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- Scripts -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.0/js/mdb.min.js"></script>
     </body>
 </html>
