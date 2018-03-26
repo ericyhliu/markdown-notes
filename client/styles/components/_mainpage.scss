@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
-
 *:focus {
     outline: none;
 }
@@ -32,88 +30,6 @@ html, body {
     width: 100% !important;
 }
 
-.autosave-info {
-    margin-right: 2em;
-}
-
 .container-main {
     margin-top: 8em;
-}
-
-.container-editor {
-    margin-top: 2em;
-}
-
-.container-markdown-editor {
-    background-color: #E8EAF6;
-    height: 100%;
-    padding-top: 3em;
-}
-
-.container-preview {
-    background-color: #F5F5F5;
-    height: 100%;
-    padding-top: 3em;
-}
-
-
-
-
-
-
-#markdown-editor {
-    font-family: 'Roboto Mono', monospace;
-    font-size: 1em;
-    overflow-x: scroll !important;
-    overflow-y: scroll !important;
-    height: 90vh;
-    padding: 0.5em;
-    white-space: pre-wrap;
-}
-
-#preview {
-    height: 90vh;
-    padding: 0.5em;
-    overflow-y: scroll;
-}
-
-#preview code {
-    background-color: #3949AB;
-    color: #fff;
-    padding: 0.25em;
-    border-radius: 0.25em;
-}
-
-#preview pre {
-    background-color: #C5CAE9;
-    padding: 0.5em;
-    border-radius: 0.25em;
-}
-
-#preview pre code {
-    color: #000;
-    padding: 0;
-    background-color: transparent;
-    border-radius: 0;
-}
-
-#preview blockquote {
-    border-left-color: #90CAF9;
-    border-left-style: solid;
-    border-left-width: 5px;
-    padding: 0.5em;
-}
-
-.container-info-bar {
-    position: fixed;
-    bottom: 0;
-    height: 1.5em;
-    background-color: #1565C0;
-    color: #fff;
-    font-size: 0.8em;
-}
-
-[contentEditable=true]:empty:before{
-    content:attr(data-placeholder);
-    color: #BDBDBD;
 }
