@@ -4,10 +4,14 @@ import MainPage from '../components/MainPage';
 import EditorPage from '../components/EditorPage';
 
 class AppRouter extends React.Component {
+
     constructor(props) {
         super(props);
     }
 
+    /**
+     * Renders the AppRouter router.
+     */
     render() {
         return (
             <BrowserRouter>

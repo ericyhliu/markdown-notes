@@ -1,6 +1,9 @@
 import React from 'react';
 
-const MainHeader = (props) => (        
+/**
+ * Renders the MainHeader stateless functional component.
+ */
+const MainHeader = (props) => (
     <div id="container-header" className="row container-header">
         <div className="col-md-1"></div>
         <div className="col-md-10">

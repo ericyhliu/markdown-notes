@@ -3,15 +3,22 @@ import MainNavbar from './MainNavbar';
 import MainHeader from './MainHeader';
 
 class MainPage extends React.Component {
+
     constructor(props) {
         super(props);
         this.handleOnClickSettings = this.handleOnClickSettings.bind(this);
     }
 
+    /**
+     * Handles user clicks on the settings button, triggers settings modal.
+     */
     handleOnClickSettings() {
         console.log('Settings');
     }
 
+    /**
+     * Renders the MainPage component.
+     */
     render() {
         return (
             <div>

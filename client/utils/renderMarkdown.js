@@ -11,6 +11,11 @@ marked.setOptions({
     smartypants: false
 });
 
+/**
+ * Renders the markdown text to HTML using marked.
+ * 
+ * @param {string} markdownText 
+ */
 const renderMarkdown = (markdownText) => {
     return marked(markdownText);
 }

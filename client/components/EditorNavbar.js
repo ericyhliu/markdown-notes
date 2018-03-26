@@ -2,10 +2,14 @@ import React from 'react';
 import moment from 'moment';
 
 class EditorNavbar extends React.Component {
+
     constructor(props) {
         super(props);
     }
 
+    /**
+     * Renders the EditorNavbar component.
+     */
     render() {
         const menuBarID = [
             ["bold", "bold"],

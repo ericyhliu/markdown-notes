@@ -1,10 +1,14 @@
 import React from 'react';
 
 class EditorInfobar extends React.Component {
+
     constructor(props) {
         super(props);
     }
 
+    /**
+     * Renders the EditorInfobar component.
+     */
     render() {
         const { numWords, numLines, numBytes } = this.props.editorInfo;
 
