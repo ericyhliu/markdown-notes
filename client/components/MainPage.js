@@ -4,6 +4,7 @@ import uuid from 'uuid';
 import MainNavbar from './MainNavbar';
 import MainHeader from './MainHeader';
 import NoFiles from './NoFiles';
+import NoSearchResults from './NoSearchResults';
 
 class MainPage extends React.Component {
 
@@ -11,10 +12,12 @@ class MainPage extends React.Component {
         super(props);
         this.state = {
             color: {},
-            files: []
+            files: [],
+            searchQuery: ''
         };
         this.handleOnClickSettings = this.handleOnClickSettings.bind(this);
         this.getIndex = this.getIndex.bind(this);
+        this.handleSearch = this.handleSearch.bind(this);
     }
 
     componentDidMount() {
@@ -43,10 +46,40 @@ class MainPage extends React.Component {
         console.log('Settings');
     }
 
+
+    handleSearch(e) {
+        const searchQuery = e.target.value.trim().toLowerCase();
+
+        this.setState(() => ({
+            searchQuery
+        }));
+    }
+
     /**
      * Renders the MainPage component.
      */
     render() {
+        let visibleCards;
+
+        if (this.state.files.length >= 0) {
+            visibleCards = this.state.files
+                .filter((x) => {
+                    return x.title.toLowerCase().includes(this.state.searchQuery)
+                })
+                .map((x) => {
+                    return (
+                        <div className="col-md-4" key={ x.id }>
+                            <div className="card">
+                                <div className="card-body">
+                                    <h4 className="card-title">{ x.title }</h4>
+                                    <p className="card-text">{ moment(x.dateCreated).format('MM/DD/YYYY') }</p>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                });
+        }
+
         return (
             <div>
                 <MainNavbar 
@@ -66,7 +99,13 @@ class MainPage extends React.Component {
                         </div>
                         <div className="col-md-7">
                             <div className="md-form active-pink active-pink-2 mb-3">
-                                <input id="search-bar" className="form-control search-bar" type="text" placeholder="Search notes..." aria-label="Search" />
+                                <input 
+                                    id="search-bar" 
+                                    className="form-control search-bar" 
+                                    type="text" 
+                                    placeholder="Search notes..." 
+                                    aria-label="Search" 
+                                    onChange={this.handleSearch}/>
                             </div>
                         </div>
                         <div className="col-md-1"></div>
@@ -82,18 +121,13 @@ class MainPage extends React.Component {
                                         <NoFiles />
                                     ) : 
                                     (
-                                        this.state.files.map((x) => {
-                                            return (
-                                                <div className="col-md-4" key={ x.id }>
-                                                    <div className="card">
-                                                        <div className="card-body">
-                                                            <h4 className="card-title">{ x.title }</h4>
-                                                            <p className="card-text">{ moment(x.dateCreated).format('MM/DD/YYYY') }</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            );
-                                        })
+                                        visibleCards.length == 0 ? 
+                                        (
+                                            <NoSearchResults />
+                                        ) :
+                                        (
+                                            visibleCards
+                                        )
                                     )
                                 }
                             </div>

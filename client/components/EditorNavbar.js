@@ -25,7 +25,10 @@ class EditorNavbar extends React.Component {
         ];
 
         return (
-            <nav className="mb-1 navbar fixed-top navbar-expand-lg navbar-dark indigo darken-3">
+            <nav id="editor-navbar" className="mb-1 navbar fixed-top navbar-expand-xl navbar-dark indigo darken-3">
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
                 <div className="collapse navbar-collapse" id="navbarSupportedContent-3">
                     <ul className="navbar-nav mr-auto">
                         {
@@ -53,9 +56,12 @@ class EditorNavbar extends React.Component {
                     <ul className="navbar-nav ml-auto nav-flex-icons">
                         <li className="nav-item">
                             <span className="navbar-text white-text autosave-info">
-                                Last autosave: <span id="autosave-datetime">{
+                                Last autosave: 
+                                <span id="autosave-datetime">
+                                {
                                     moment(this.props.lastAutosaveTime).format('MM/DD/YYYY h:mm:ss a')
-                                }</span>
+                                }
+                                </span>
                             </span>
                         </li>
                         <li 
