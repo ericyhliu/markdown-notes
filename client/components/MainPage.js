@@ -1,12 +1,39 @@
 import React from 'react';
+import moment from 'moment';
+import uuid from 'uuid';
 import MainNavbar from './MainNavbar';
 import MainHeader from './MainHeader';
+import NoFiles from './NoFiles';
 
 class MainPage extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            color: {},
+            files: []
+        };
         this.handleOnClickSettings = this.handleOnClickSettings.bind(this);
+        this.getIndex = this.getIndex.bind(this);
+    }
+
+    componentDidMount() {
+        this.getIndex();
+    }
+
+    /**
+     * 
+     */
+    getIndex() {
+        fetch('/file/settings')
+        .then((resultPromise) => {
+            return resultPromise.json();
+        })
+        .then((result) => {
+            this.setState(() => ({
+                ...result
+            }));
+        });
     }
 
     /**
@@ -49,30 +76,26 @@ class MainPage extends React.Component {
                         <div className="col-md-1"></div>
                         <div className="col-md-10">
                             <div id="cards-row" className="row">
-                                <div className="col-md-4">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <h4 className="card-title">CS 241 Lecture 1</h4>
-                                            <p className="card-text">Date Created: 03/24/2018</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <h4 className="card-title">CS 240 Lecture 1</h4>
-                                            <p className="card-text">Date Created: 03/23/2018</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-md-4">
-                                    <div className="card">
-                                        <div className="card-body">
-                                            <h4 className="card-title">CO 250 Lecture 1</h4>
-                                            <p className="card-text">Date Created: 03/23/2018</p>
-                                        </div>
-                                    </div>
-                                </div>
+                                {
+                                    this.state.files.length == 0 ?
+                                    (
+                                        <NoFiles />
+                                    ) : 
+                                    (
+                                        this.state.files.map((x) => {
+                                            return (
+                                                <div className="col-md-4" key={ x.id }>
+                                                    <div className="card">
+                                                        <div className="card-body">
+                                                            <h4 className="card-title">{ x.title }</h4>
+                                                            <p className="card-text">{ moment(x.dateCreated).format('MM/DD/YYYY') }</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            );
+                                        })
+                                    )
+                                }
                             </div>
                         </div>
                         <div className="col-md-1"></div>
