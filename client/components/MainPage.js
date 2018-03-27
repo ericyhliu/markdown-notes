@@ -1,5 +1,7 @@
 import React from 'react';
 import moment from 'moment';
+import $ from 'jquery';
+
 import { Redirect } from 'react-router';
 import MainNavbar from './MainNavbar';
 import MainHeader from './MainHeader';
@@ -110,7 +112,7 @@ class MainPage extends React.Component {
      */
     render() {
         if (this.state.addedNewNote) {
-            return <Redirect to={'/editor'} />;
+            window.location.reload();
         }
 
         let visibleCards;
@@ -136,148 +138,124 @@ class MainPage extends React.Component {
 
         return (
             <div>
-            <div>
-                <MainNavbar 
-                    handleOnClickSettings={ this.handleOnClickSettings }
-                />
-
-                <div className="container-fluid container-main">
-                    <MainHeader
-                        title={'Welcome to Markdown Notes!'}
-                        subtitle={'Create, edit and organize your notes with ease.'}
+                <div>
+                    <MainNavbar 
+                        handleOnClickSettings={ this.handleOnClickSettings }
                     />
 
-                    <div id="container-menu" className="row container-menu">
-                        <div className="col-md-1"></div>
-                        <div className="col-md-3">
-                            <button 
-                                id="btn-new-note" 
-                                className="btn btn-indigo" 
-                                data-toggle="modal" 
-                                data-target="#modal-add-new-note">
-                                <i className="fa fa-plus mr-1 icon-add-new-note"></i>
-                                Add New Note
-                            </button>
-                        </div>
-                        <div className="col-md-7">
-                            <div className="md-form active-pink active-pink-2 mb-3">
-                                <input 
-                                    id="search-bar" 
-                                    className="form-control search-bar" 
-                                    type="text" 
-                                    placeholder="Search notes..." 
-                                    aria-label="Search" 
-                                    onChange={ this.handleSearch }/>
-                            </div>
-                        </div>
-                        <div className="col-md-1"></div>
-                    </div>
+                    <div className="container-fluid container-main">
+                        <MainHeader
+                            title={'Welcome to Markdown Notes!'}
+                            subtitle={'Create, edit and organize your notes with ease.'}
+                        />
 
-                    <div id="container-cards-outer" className="row container-cards">
-                        <div className="col-md-1"></div>
-                        <div className="col-md-10">
-                            <div id="cards-row" className="row">
-                                {
-                                    this.state.files.length == 0 ?
-                                    (
-                                        <NoFiles />
-                                    ) : 
-                                    (
-                                        visibleCards.length == 0 ? 
+                        <div id="container-menu" className="row container-menu">
+                            <div className="col-md-1"></div>
+                            <div className="col-md-3">
+                                <button 
+                                    id="btn-new-note" 
+                                    className="btn btn-indigo" 
+                                    data-toggle="modal" 
+                                    data-target="#modal-add-new-note">
+                                    <i className="fa fa-plus mr-1 icon-add-new-note"></i>
+                                    Add New Note
+                                </button>
+                            </div>
+                            <div className="col-md-7">
+                                <div className="md-form active-pink active-pink-2 mb-3">
+                                    <input 
+                                        id="search-bar" 
+                                        className="form-control search-bar" 
+                                        type="text" 
+                                        placeholder="Search notes..." 
+                                        aria-label="Search" 
+                                        onChange={ this.handleSearch }/>
+                                </div>
+                            </div>
+                            <div className="col-md-1"></div>
+                        </div>
+
+                        <div id="container-cards-outer" className="row container-cards">
+                            <div className="col-md-1"></div>
+                            <div className="col-md-10">
+                                <div id="cards-row" className="row">
+                                    {
+                                        this.state.files.length == 0 ?
                                         (
-                                            <NoSearchResults />
-                                        ) :
+                                            <NoFiles />
+                                        ) : 
                                         (
-                                            visibleCards
+                                            visibleCards.length == 0 ? 
+                                            (
+                                                <NoSearchResults />
+                                            ) :
+                                            (
+                                                visibleCards
+                                            )
                                         )
-                                    )
-                                }
+                                    }
+                                </div>
                             </div>
-                        </div>
-                        <div className="col-md-1"></div>
-                    </div>
-                </div>
-            </div>
-
-            <AddNewNoteModal
-                handleAddNewNote={this.handleAddNewNote}
-            />
-
-            
-
-
-
-            <div className="modal fade" id="modal-add-new-note" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div className="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
-                    <div className="modal-content">                    
-                        <div className="modal-body text-left mb-1"> 
-                            <h3>Add New Note</h3>                        
-                            <div className="md-form">
-                                <input type="text" id="input-new-note" className="form-control" placeholder="Enter note title..."/>
-                            </div>
-                            <div className="text-center mt-4">
-                                <button id="btn-create-new-note" className="btn btn-indigo">Create New Note</button>
-                            </div>
+                            <div className="col-md-1"></div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <AddNewNoteModal
+                    handleAddNewNote={this.handleAddNewNote}
+                />
 
+                <div className="modal fade right" id="fluidModalRightSuccessDemo" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true" data-backdrop="false">
+                    <div className="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <p className="heading lead">Settings</p>
 
-            <div className="modal fade right" id="fluidModalRightSuccessDemo" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true" data-backdrop="false">
-                <div className="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <p className="heading lead">Settings</p>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" className="white-text">&times;</span>
+                                </button>
+                            </div>
 
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true" className="white-text">&times;</span>
-                            </button>
-                        </div>
-
-                        <div className="modal-body">
-                            <div className="text-center">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis
-                                    ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga,
-                                    enim, ab officiis totam.
-                                </p>
+                            <div className="modal-body">
+                                <div className="text-center">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis
+                                        ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga,
+                                        enim, ab officiis totam.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div className="modal fade right" id="fluidModalRightSuccessDemo" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
+                    aria-hidden="true" data-backdrop="false">
+                    <div className="modal-dialog modal-full-height modal-right modal-notify modal-success" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <p className="heading lead">Modal Success</p>
 
-
-            <div className="modal fade right" id="fluidModalRightSuccessDemo" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
-                aria-hidden="true" data-backdrop="false">
-                <div className="modal-dialog modal-full-height modal-right modal-notify modal-success" role="document">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <p className="heading lead">Modal Success</p>
-
-                            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true" className="white-text">&times;</span>
-                            </button>
-                        </div>
-
-                        <div className="modal-body">
-                            <div className="text-center">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis
-                                    ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga,
-                                    enim, ab officiis totam.
-                                </p>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true" className="white-text">&times;</span>
+                                </button>
                             </div>
-                        </div>
 
-                        <div className="modal-footer justify-content-center">
-                            <a type="button" className="btn btn-outline-success waves-effect" data-dismiss="modal">Close</a>
+                            <div className="modal-body">
+                                <div className="text-center">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis
+                                        ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga,
+                                        enim, ab officiis totam.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="modal-footer justify-content-center">
+                                <a type="button" className="btn btn-outline-success waves-effect" data-dismiss="modal">Close</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
             </div>
         );

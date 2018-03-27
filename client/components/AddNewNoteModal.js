@@ -10,7 +10,10 @@ class AddNewNoteModal extends React.Component {
         this.handleChangeText = this.handleChangeText.bind(this);
     }
 
-    componentWillUnmount() {
+    /**
+     * On component mount, reset the input text.
+     */
+    componentWillMount() {
         this.setState(() => ({
             text: ''
         }));
@@ -28,6 +31,9 @@ class AddNewNoteModal extends React.Component {
         }));
     }
 
+    /**
+     * Renders the AddNewNoteModal component.
+     */
     render() {
         return (
             <div className="modal fade" id="modal-add-new-note" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
