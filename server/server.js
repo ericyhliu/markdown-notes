@@ -1,4 +1,3 @@
-const _ = require('lodash');
 const bodyParser = require('body-parser');
 const express = require('express');
 const fs = require('fs');
@@ -9,6 +8,7 @@ const app = express();
 
 // Utils:
 const { loadIndexFile } = require('./utils/loadIndexFile');
+const { createNewNote } = require('./utils/createNewNote');
 
 const publicPath = path.join(__dirname, '..', 'public');
 const port = process.env.PORT || 5000;
@@ -34,7 +34,23 @@ app.listen(port, () => {
 app.get('/file/settings', (req, res) => {
     loadIndexFile((data) => {
         res.setHeader('Content-Type', 'application/json');
-        res.send(JSON.stringify(data));
+        return res.send(JSON.stringify(data));
+    });
+});
+
+app.post('/file/add-new-note', (req, res) => {
+    createNewNote(req.body.data, (err, data) => {
+        res.setHeader('Content-Type', 'application/json');
+
+        if (err) {
+            return res.send(JSON.stringify({
+                error: 'There was an error adding a new note.'
+            }));
+        }
+
+        return res.send(JSON.stringify({
+            success: 'New note successfully added.'
+        }));
     });
 });
 

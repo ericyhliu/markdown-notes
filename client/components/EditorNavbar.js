@@ -56,7 +56,7 @@ class EditorNavbar extends React.Component {
                     <ul className="navbar-nav ml-auto nav-flex-icons">
                         <li className="nav-item">
                             <span className="navbar-text white-text autosave-info">
-                                Last autosave: 
+                                Last autosave:&nbsp;
                                 <span id="autosave-datetime">
                                 {
                                     moment(this.props.lastAutosaveTime).format('MM/DD/YYYY h:mm:ss a')

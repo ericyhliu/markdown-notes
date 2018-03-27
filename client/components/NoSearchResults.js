@@ -4,7 +4,7 @@ import React from 'react';
  * Renders the NoSearchResults stateless functional component.
  */
 const NoSearchResults = (props) => (
-    <div className="container-no-files">
+    <div className="container-empty">
         No search results found.
     </div>
 );
