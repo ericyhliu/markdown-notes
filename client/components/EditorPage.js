@@ -20,9 +20,8 @@ class EditorPage extends React.Component {
         this.state = {
             id: '',
             redirectToMainPage: false,
-            lastAutosaveTime: moment(),
             markdownText: '',
-            autosavedText: '',
+            preloadedText: '',
             editorInfo: {
                 numWords: 0,
                 numLines: 1,
@@ -33,13 +32,11 @@ class EditorPage extends React.Component {
         this.handleMenuBarItemClick = this.handleMenuBarItemClick.bind(this);
         this.handleSaveEditor = this.handleSaveEditor.bind(this);
         this.handleEdit = this.handleEdit.bind(this);
-        this.handleAutosave = this.handleAutosave.bind(this);
         this.insertTextAtCursor = this.insertTextAtCursor.bind(this);
     }
 
     /**
-     * When component is about to mount, autosaved data is loaded into the 
-     * editor, if possible.
+     * When the component is mounted, load the text from file:
      */
     componentWillMount() {
         if (!this.props.location.state) {
@@ -61,32 +58,12 @@ class EditorPage extends React.Component {
             return resultPromise.json();
         })
         .then((result) => {
-            let localStorageData = localStorage['MarkdownNotesAutoSave'];
-
-            if (localStorageData) {
-                localStorageData = JSON.parse(localStorageData);
-            }
-
-            let markdownText;
-            if (localStorageData && 
-                localStorageData.id == this.state.id &&
-                localStorageData.markdownText.trim().length > 0) {
-                markdownText = localStorageData.markdownText;
-                
-            } else {
-                markdownText = result.success.data;
-                localStorage.clear();
-            }
-
             this.setState(() => ({
-                lastAutosaveTime: moment(),
-                markdownText,
-                autosavedText: markdownText,
-                editorInfo: getMarkdownInfo(markdownText)
+                preloadedText: result.success.data
             }));
         });
     }
-
+    
     /**
      * Gets the corresponding snippet to the selected menuItem, and inserts
      * the snippet at the current cursor position.
@@ -118,7 +95,7 @@ class EditorPage extends React.Component {
             editorInfo: getMarkdownInfo(markdownText)
         }));
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, "preview"]);
-        this.handleAutosave(markdownText, false);
+        // this.handleAutosave(markdownText, false);
     }
 
     /**
@@ -199,7 +176,7 @@ class EditorPage extends React.Component {
         return (
             <div>
                 <EditorNavbar 
-                    lastAutosaveTime={ this.state.lastAutosaveTime }
+                    lastAutosaveTime={ 123 }
                     handleMenuBarItemClick={ this.handleMenuBarItemClick }
                     handleSaveEditor={ this.handleSaveEditor }
                 />
@@ -208,13 +185,17 @@ class EditorPage extends React.Component {
                     <div className="row">
                         <div className="col-md-6 container-markdown-editor">
                             <TextEditor 
-                                autosavedText={ this.state.autosavedText }
+                                preloadedText={ this.state.preloadedText }
                                 handleEdit={ this.handleEdit }
                             />
                         </div>
                         <div className="col-md-6 container-preview">
                             <LivePreview 
-                                markdownText={ this.state.markdownText }
+                                markdownText={ 
+                                    this.state.markdownText ?
+                                    this.state.markdownText :
+                                    this.state.preloadedText
+                                }
                             />
                         </div>
                     </div>

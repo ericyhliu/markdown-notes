@@ -5,7 +5,7 @@ class TextEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            autosavedText: this.props.autosavedText
+            preloadedText: this.props.preloadedText
         };
         
         this.handleKeyUp = this.handleKeyUp.bind(this);
@@ -37,7 +37,7 @@ class TextEditor extends React.Component {
                 }}
                 tabIndex="0"
                 suppressContentEditableWarning={true}>
-                {  this.state.autosavedText }
+                {  this.props.preloadedText }
             </div>
         );
     }

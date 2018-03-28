@@ -9,3 +9,4 @@ Features:
 - Dynamic Latex rendering
 - Autosave
 - Customization
+- Export to PDF
