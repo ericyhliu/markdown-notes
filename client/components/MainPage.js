@@ -1,7 +1,9 @@
 import React from 'react';
 import moment from 'moment';
 import { Redirect } from 'react-router';
+import FileSaver from 'file-saver';
 
+// Components:
 import MainNavbar from './MainNavbar';
 import MainHeader from './MainHeader';
 import NoFiles from './NoFiles';
@@ -9,7 +11,6 @@ import NoSearchResults from './NoSearchResults';
 import AddNewNoteModal from './AddNewNoteModal';
 import SettingsModal from './SettingsModal';
 import CardSettingsModal from './CardSettingsModal';
-
 
 class MainPage extends React.Component {
 
@@ -23,7 +24,8 @@ class MainPage extends React.Component {
             deletedNote: false,
             openNoteInEditor: false,
             openNoteID: '',
-            cardSettingsData: {}
+            cardSettingsData: {},
+            loading: true
         };
         this.handleOnClickSettings = this.handleOnClickSettings.bind(this);
         this.getIndex = this.getIndex.bind(this);
@@ -32,6 +34,7 @@ class MainPage extends React.Component {
         this.handleCardSettings = this.handleCardSettings.bind(this);
         this.handleOpenNoteInEditor = this.handleOpenNoteInEditor.bind(this);
         this.handleDeleteNote = this.handleDeleteNote.bind(this);
+        this.handleExportToPDF = this.handleExportToPDF.bind(this);
     }
 
     /**
@@ -176,6 +179,26 @@ class MainPage extends React.Component {
     }
 
     /**
+     * Exports the markdown file by the given id name as a PDF, then 
+     * automatically downloads the file.
+     * 
+     * @param {string} id 
+     */
+    handleExportToPDF(id) {
+        if (!id) {
+            return;
+        }
+
+        fetch(`/file/export/${id}`)
+        .then((result) => {
+            return result.blob();
+        })
+        .then((result) => {
+            FileSaver.saveAs(result, 'download.pdf');
+        });
+    }
+
+    /**
      * Renders the MainPage component.
      */
     render() {
@@ -308,14 +331,14 @@ class MainPage extends React.Component {
                     handleAddNewNote={ this.handleAddNewNote }
                 />
 
-                <SettingsModal
-                    
-                />
+                <SettingsModal />
 
                 <CardSettingsModal 
                     cardSettingsData={ this.state.cardSettingsData }
                     handleOpenNoteInEditor={ this.handleOpenNoteInEditor }
                     handleDeleteNote={ this.handleDeleteNote }
+                    handleExportToPDF={ this.handleExportToPDF }
+                    loading={ this.state.loading }
                 />
             </div>
         );

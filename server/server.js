@@ -12,6 +12,7 @@ const { createNewNote } = require('./utils/createNewNote');
 const { deleteNote } = require('./utils/deleteNote');
 const { loadNote } = require('./utils/loadNote');
 const { saveNote } = require('./utils/saveNote');
+const { exportToPDF } = require('./utils/exportToPDF');
 
 const publicPath = path.join(__dirname, '..', 'public');
 const port = process.env.PORT || 5000;
@@ -102,6 +103,24 @@ app.post('/file/save', (req, res) => {
         return res.send(JSON.stringify({
             success: 'Note successfully saved.'
         }));
+    });
+});
+
+app.get('/file/export/:id', (req, res) => {
+    console.log(req.params.id);
+
+    exportToPDF(req.params.id, (url) => {
+        fs.readFile(url, function (err, data){
+            if (err) {
+                res.setHeader('Content-Type', 'application/json');
+                return res.send(JSON.stringify({
+                    error: 'There was an error exporting the note.'
+                }));
+            }
+
+            res.contentType("application/pdf");
+            res.end(data);
+         });
     });
 });
 

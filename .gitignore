@@ -4,6 +4,7 @@ out
 testing
 archive
 playground
+temp
 *.iml
 *.log
 test.md

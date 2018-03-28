@@ -24,7 +24,8 @@ class SettingsModal extends React.Component {
 
                         <div className="modal-body">
                             <div className="text-center">
-                                <p>This is the settings fuck
+                                <p>
+                                    This is the settings you cuck
                                 </p>
                             </div>
                         </div>

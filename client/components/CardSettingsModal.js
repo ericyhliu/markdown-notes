@@ -40,11 +40,11 @@ class CardSettingsModal extends React.Component {
                                 </p>
                             </div>
                         </div>
-
+                    
                         <div className="modal-footer">
                         <button 
                             type="button" 
-                            className="btn btn-primary"
+                            className="btn btn-primary btn-modal-card-settings"
                             onClick={() => {
                                 this.props.handleOpenNoteInEditor(this.props.cardSettingsData.id);
                             }}>
@@ -52,7 +52,15 @@ class CardSettingsModal extends React.Component {
                         </button>
                         <button 
                             type="button" 
-                            className="btn btn-danger"
+                            className="btn btn-primary btn-modal-card-settings"
+                            onClick={() => {
+                                this.props.handleExportToPDF(this.props.cardSettingsData.id);
+                            }}>
+                            Export to PDF
+                        </button>
+                        <button 
+                            type="button" 
+                            className="btn btn-danger btn-modal-card-settings"
                             onClick={() => {
                                 this.props.handleDeleteNote(this.props.cardSettingsData.id);
                             }}>
