@@ -22,3 +22,30 @@ Markdown.
 - Autosave
 - Customization
 - Export to PDF
+
+## Usage
+
+Before you start, run:
+
+```
+yarn run build:prod
+```
+
+Then run:
+
+```
+yarn run start
+```
+
+And your Markdown notes server will be ready to use at port 5000. The actual files, and file index 
+will be saved to a directory called `user-data`. Exported PDFs are saved in a temp directory called
+`temp`.
+
+## Testing/Dev
+
+Uses `webpack`, `babel` to transpile the JSX to regular JavaScript, `webpack-live-server` and 
+`nodemon` for automatic reloading of client and server. In the terminal, run:
+
+```
+yarn run dev
+```
