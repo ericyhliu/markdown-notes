@@ -6,6 +6,9 @@ class SettingsModal extends React.Component {
         super(props);
     }
 
+    /**
+     * Renders the SettingsModal component.
+     */
     render() {
         return (
             <div className="modal fade right" id="modal-settings" tabIndex="-1" role="dialog" aria-labelledby="modal-settings"

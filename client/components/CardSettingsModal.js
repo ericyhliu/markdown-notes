@@ -7,6 +7,9 @@ class CardSettingsModal extends React.Component {
         super(props);
     }
 
+    /**
+     * Renders the CardSettingsModal component.
+     */
     render() {
         return (
             <div className="modal fade right" id="modal-card-settings" tabIndex="-1" role="dialog" aria-labelledby="modal-card-settings"

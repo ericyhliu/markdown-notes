@@ -11,6 +11,7 @@ const { loadIndexFile } = require('./utils/loadIndexFile');
 const { createNewNote } = require('./utils/createNewNote');
 const { deleteNote } = require('./utils/deleteNote');
 const { loadNote } = require('./utils/loadNote');
+const { saveNote } = require('./utils/saveNote');
 
 const publicPath = path.join(__dirname, '..', 'public');
 const port = process.env.PORT || 5000;
@@ -84,6 +85,22 @@ app.get('/file/contents/:id', (req, res) => {
 
         return res.send(JSON.stringify({
             success: data
+        }));
+    });
+});
+
+app.post('/file/save', (req, res) => {
+    saveNote(req.body.data, (err, data) => {
+        res.setHeader('Content-Type', 'application/json');
+
+        if (err) {
+            return res.send(JSON.stringify({
+                error: 'There was an error saving the note.'
+            }));
+        }
+
+        return res.send(JSON.stringify({
+            success: 'Note successfully saved.'
         }));
     });
 });

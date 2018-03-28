@@ -46,6 +46,7 @@ class MainPage extends React.Component {
             openNoteID: ''
         }));
         this.getIndex();
+        localStorage.clear();
     }
 
     /**

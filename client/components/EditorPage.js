@@ -12,8 +12,9 @@ import LivePreview from './LivePreview';
 import getMarkdownInfo from '../utils/getMarkdownInfo';
 import mapMenuItemToSnippet from '../utils/mapMenuItemToSnippet';
 
+const LOCAL_STORAGE_MARKDOWN_NOTES = 'MarkdownNotesAutosave';
+
 class EditorPage extends React.Component {
-    
     constructor(props) {
         super(props);
 
@@ -58,9 +59,25 @@ class EditorPage extends React.Component {
             return resultPromise.json();
         })
         .then((result) => {
-            this.setState(() => ({
-                preloadedText: result.success.data
-            }));
+            // Load from autosave if possible, otherwise load default:
+            let localStorageData = localStorage[LOCAL_STORAGE_MARKDOWN_NOTES];
+            
+            if (localStorageData) {
+                localStorageData = JSON.parse(localStorageData);
+            }
+
+            if (localStorageData &&
+                localStorageData.id == currentStateID &&
+                localStorageData.markdownText) {
+                
+                this.setState(() => ({
+                    preloadedText: localStorageData.markdownText
+                }));
+            } else {
+                this.setState(() => ({
+                    preloadedText: result.success.data
+                }));
+            }
         });
     }
     
@@ -74,28 +91,51 @@ class EditorPage extends React.Component {
         this.insertTextAtCursor(mapMenuItemToSnippet(menuItem));
     }
 
+    /**
+     * Handles saving the editor text content on clicking 'Done'.
+     */
     handleSaveEditor() {
-        console.log('save editor');
+        fetch('/file/save', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                data: {
+                    id: this.state.id,
+                    markdownText: this.state.markdownText ? 
+                        this.state.markdownText :
+                        this.state.preloadedText
+                }
+            })
+        })
+        .then((resultPromise) => {
+            return resultPromise.json();
+        })
+        .then((result) => {
+            if (result.success) {
+                this.setState(() => ({
+                    redirectToMainPage: true
+                }));
+            }
+        });
     }
 
     /**
      * When the markdown text on the editor side changes, the state of the page
-     * with respect to the markdownText, autosavedText, editorInfo gets updated.
-     * On the preview side, all Latex is rendered with MathJax. The markdown text
-     * is autosaved.
-     * 
-     * Note: autosavedText is reset.
+     * with respect to the markdownText, editorInfo gets updated. On the preview side, all Latex 
+     * is rendered with MathJax. The markdown text is autosaved.
      * 
      * @param {string} markdownText 
      */
     handleEdit(markdownText) {
         this.setState(() => ({
             markdownText,
-            autosavedText: '',
             editorInfo: getMarkdownInfo(markdownText)
         }));
         MathJax.Hub.Queue(["Typeset", MathJax.Hub, "preview"]);
-        // this.handleAutosave(markdownText, false);
+        this.handleAutosave(markdownText, false);
     }
 
     /**
@@ -114,11 +154,10 @@ class EditorPage extends React.Component {
         }
 
         this.setState(() => ({
-            autosavedText: markdownText,
             lastAutosaveTime: currentTime
         }));
 
-        localStorage['MarkdownNotesAutoSave'] = JSON.stringify({
+        localStorage[LOCAL_STORAGE_MARKDOWN_NOTES] = JSON.stringify({
             id: this.state.id,
             markdownText
         });
@@ -176,7 +215,7 @@ class EditorPage extends React.Component {
         return (
             <div>
                 <EditorNavbar 
-                    lastAutosaveTime={ 123 }
+                    lastAutosaveTime={ this.state.lastAutosaveTime }
                     handleMenuBarItemClick={ this.handleMenuBarItemClick }
                     handleSaveEditor={ this.handleSaveEditor }
                 />

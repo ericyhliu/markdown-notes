@@ -14,7 +14,7 @@ const createNewNote = (title, callback) => {
     fs.readFile(INDEX_FILE_PATH, (err, data) => {
         if (err) {
             return callback({
-                error: 'index file not found'
+                error: true
             }, undefined);
         }
 

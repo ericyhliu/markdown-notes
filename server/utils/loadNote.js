@@ -26,7 +26,7 @@ const loadNote = (id, callback) => {
 
         if (data.files.length === 0) {
             return callback({
-                error: 'file not found'
+                error: true
             }, undefined);
         }
 
@@ -34,7 +34,7 @@ const loadNote = (id, callback) => {
         fs.readFile(USER_DATA_FILE_PATH, (err, data) => {
             if (err) {
                 return callback({
-                    error: 'problem reading from file'
+                    error: true
                 }, undefined);
             }
 
