@@ -20,7 +20,7 @@ class MainNavbar extends React.Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent-4">
                         <ul className="navbar-nav ml-auto">
                             <li id="btn-settings" className="nav-item" onClick={this.props.handleOnClickSettings}>
-                                <a className="nav-link waves-effect waves-light" href="#" data-toggle="modal" data-target="#fluidModalRightSuccessDemo">
+                                <a className="nav-link waves-effect waves-light" href="#" data-toggle="modal" data-target="#modal-settings">
                                     <i className="fa fa-gear"></i> Settings
                                 </a>
                             </li>

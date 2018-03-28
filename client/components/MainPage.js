@@ -1,13 +1,15 @@
 import React from 'react';
 import moment from 'moment';
-import $ from 'jquery';
-
 import { Redirect } from 'react-router';
+
 import MainNavbar from './MainNavbar';
 import MainHeader from './MainHeader';
 import NoFiles from './NoFiles';
 import NoSearchResults from './NoSearchResults';
 import AddNewNoteModal from './AddNewNoteModal';
+import SettingsModal from './SettingsModal';
+import CardSettingsModal from './CardSettingsModal';
+
 
 class MainPage extends React.Component {
 
@@ -17,12 +19,17 @@ class MainPage extends React.Component {
             color: {},
             files: [],
             searchQuery: '',
-            addedNewNote: false
+            addedNewNote: false,
+            deletedNote: false,
+            cardSettingsData: {}
         };
         this.handleOnClickSettings = this.handleOnClickSettings.bind(this);
         this.getIndex = this.getIndex.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleAddNewNote = this.handleAddNewNote.bind(this);
+        this.handleCardSettings = this.handleCardSettings.bind(this);
+        this.handleOpenNoteInEditor = this.handleOpenNoteInEditor.bind(this);
+        this.handleDeleteNote = this.handleDeleteNote.bind(this);
     }
 
     /**
@@ -31,7 +38,8 @@ class MainPage extends React.Component {
      */
     componentWillMount() {
         this.setState(() => ({
-            addedNewNote: false
+            addedNewNote: false,
+            deletedNote: false
         }));
         this.getIndex();
     }
@@ -108,10 +116,60 @@ class MainPage extends React.Component {
     }
 
     /**
+     * Handles open card settings.
+     * 
+     * @param {Object} data 
+     */
+    handleCardSettings(data) {
+        this.setState(() => ({
+            cardSettingsData: data
+        }));
+    }
+
+    /**
+     * Handle open note in editor button card.
+     */
+    handleOpenNoteInEditor(id) {
+        console.log(id);
+    }
+
+    /**
+     * Handle delete note.
+     */
+    handleDeleteNote(id) {
+        if (!id) {
+            return;
+        }
+
+        fetch('/file/delete-note', {
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                data: id
+            })
+        })
+        .then((resultPromise) => {
+            return resultPromise.json();
+        })
+        .then((result) => {
+            if (result.err) {
+                return;
+            }
+
+            this.setState(() => ({
+                deletedNote: true
+            }));
+        });
+    }
+
+    /**
      * Renders the MainPage component.
      */
     render() {
-        if (this.state.addedNewNote) {
+        if (this.state.addedNewNote || this.state.deletedNote) {
             window.location.reload();
         }
 
@@ -119,21 +177,42 @@ class MainPage extends React.Component {
 
         if (this.state.files.length >= 0) {
             visibleCards = this.state.files
-                .filter((x) => {
-                    return x.title.toLowerCase().includes(this.state.searchQuery)
-                })
-                .map((x) => {
-                    return (
-                        <div className="col-md-4" key={ x.id }>
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4 className="card-title">{ x.title }</h4>
-                                    <p className="card-text">{ moment(x.dateCreated).format('MM/DD/YYYY') }</p>
+            .filter((x) => {
+                return x.title.toLowerCase().includes(this.state.searchQuery)
+            })
+            .map((x) => {
+                return (
+                    <div className="col-md-4" key={ x.id }>
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="card-title">
+                                { 
+                                    x.title 
+                                }
+                                </h4>
+                                <p className="card-text">{ moment(x.dateCreated).format('MM/DD/YYYY') }</p>
+                                <div className="card-settings-container">
+                                    <a 
+                                        href="#" 
+                                        className="d-flex justify-content-end float-right float-bottom" 
+                                        data-toggle="modal" 
+                                        data-target="#modal-card-settings"
+                                        onClick={() => {
+                                            this.handleCardSettings({
+                                                id: x.id,
+                                                title: x.title,
+                                                dateCreated: x.dateCreated
+                                            });
+                                        }}>
+                                        <span><i className="fa fa-cog card-settings"></i></span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    );
-                });
+                    </div>
+                );
+            })
+            .reverse();
         }
 
         return (
@@ -205,58 +284,15 @@ class MainPage extends React.Component {
                     handleAddNewNote={this.handleAddNewNote}
                 />
 
-                <div className="modal fade right" id="fluidModalRightSuccessDemo" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
-                    aria-hidden="true" data-backdrop="false">
-                    <div className="modal-dialog modal-full-height modal-right modal-notify modal-info" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <p className="heading lead">Settings</p>
+                <SettingsModal
+                    
+                />
 
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true" className="white-text">&times;</span>
-                                </button>
-                            </div>
-
-                            <div className="modal-body">
-                                <div className="text-center">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis
-                                        ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga,
-                                        enim, ab officiis totam.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="modal fade right" id="fluidModalRightSuccessDemo" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel"
-                    aria-hidden="true" data-backdrop="false">
-                    <div className="modal-dialog modal-full-height modal-right modal-notify modal-success" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <p className="heading lead">Modal Success</p>
-
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true" className="white-text">&times;</span>
-                                </button>
-                            </div>
-
-                            <div className="modal-body">
-                                <div className="text-center">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto nulla aperiam blanditiis
-                                        ad consequatur in dolores culpa, dignissimos, eius non possimus fugiat. Esse ratione fuga,
-                                        enim, ab officiis totam.
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="modal-footer justify-content-center">
-                                <a type="button" className="btn btn-outline-success waves-effect" data-dismiss="modal">Close</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                <CardSettingsModal 
+                    cardSettingsData={this.state.cardSettingsData}
+                    handleOpenNoteInEditor={this.handleOpenNoteInEditor}
+                    handleDeleteNote={this.handleDeleteNote}
+                />
             </div>
         );
     }

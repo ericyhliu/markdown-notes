@@ -36,7 +36,7 @@ class AddNewNoteModal extends React.Component {
      */
     render() {
         return (
-            <div className="modal fade" id="modal-add-new-note" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div className="modal fade" id="modal-add-new-note" tabIndex="-1" role="dialog" aria-labelledby="modal-add-new-note" aria-hidden="true">
                 <div className="modal-dialog cascading-modal modal-avatar modal-sm" role="document">
                     <div className="modal-content">                    
                         <div className="modal-body text-left mb-1"> 

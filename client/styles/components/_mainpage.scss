@@ -35,3 +35,17 @@
 .icon-add-new-note {
     padding-right: 1em;
 }
+
+.card-settings {
+    color: $medium-grey;
+}
+
+.card-settings:hover {
+    color: $indigo;
+}
+
+.card-settings-container {
+    position: absolute;
+    bottom: 1em;
+    right: 1em;
+}

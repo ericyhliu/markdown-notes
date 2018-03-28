@@ -9,6 +9,7 @@ const app = express();
 // Utils:
 const { loadIndexFile } = require('./utils/loadIndexFile');
 const { createNewNote } = require('./utils/createNewNote');
+const { deleteNote } = require('./utils/deleteNote');
 
 const publicPath = path.join(__dirname, '..', 'public');
 const port = process.env.PORT || 5000;
@@ -50,6 +51,22 @@ app.post('/file/add-new-note', (req, res) => {
 
         return res.send(JSON.stringify({
             success: 'New note successfully added.'
+        }));
+    });
+});
+
+app.delete('/file/delete-note', (req, res) => {
+    deleteNote(req.body.data, (err, data) => {
+        res.setHeader('Content-Type', 'application/json');
+
+        if (err) {
+            return res.send(JSON.stringify({
+                error: 'There was an error deleting the note.'
+            }));
+        }
+
+        return res.send(JSON.stringify({
+            success: 'Note successfully deleted.'
         }));
     });
 });
