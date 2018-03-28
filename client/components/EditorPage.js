@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { Redirect } from 'react-router-dom';
 
 // Components:
 import EditorNavbar from './EditorNavbar';
@@ -17,6 +18,8 @@ class EditorPage extends React.Component {
         super(props);
 
         this.state = {
+            id: '',
+            redirectToMainPage: false,
             lastAutosaveTime: moment(),
             markdownText: '',
             autosavedText: '',
@@ -39,23 +42,49 @@ class EditorPage extends React.Component {
      * editor, if possible.
      */
     componentWillMount() {
-        let localStorageData = localStorage['MarkdownNotesAutoSave'];
+        if (!this.props.location.state) {
+            this.setState(() => ({
+                redirectToMainPage: true
+            }));
+            return;
+        } 
 
-        if (localStorageData) {
-            localStorageData = JSON.parse(localStorageData);
-        }
+        const currentStateID = this.props.location.state.id;
 
-        if (localStorageData && localStorageData.id == '123') {
-            const markdownText = localStorageData.markdownText;
+        this.setState(() => ({
+            id: currentStateID,
+            redirectToMainPage: false
+        }));
+
+        fetch(`/file/contents/${currentStateID}`)
+        .then((resultPromise) => {
+            return resultPromise.json();
+        })
+        .then((result) => {
+            let localStorageData = localStorage['MarkdownNotesAutoSave'];
+
+            if (localStorageData) {
+                localStorageData = JSON.parse(localStorageData);
+            }
+
+            let markdownText;
+            if (localStorageData && 
+                localStorageData.id == this.state.id &&
+                localStorageData.markdownText.trim().length > 0) {
+                markdownText = localStorageData.markdownText;
+                
+            } else {
+                markdownText = result.success.data;
+                localStorage.clear();
+            }
+
             this.setState(() => ({
                 lastAutosaveTime: moment(),
                 markdownText,
                 autosavedText: markdownText,
                 editorInfo: getMarkdownInfo(markdownText)
             }));
-        } else {
-            localStorage.clear();
-        }
+        });
     }
 
     /**
@@ -108,11 +137,12 @@ class EditorPage extends React.Component {
         }
 
         this.setState(() => ({
+            autosavedText: markdownText,
             lastAutosaveTime: currentTime
         }));
 
         localStorage['MarkdownNotesAutoSave'] = JSON.stringify({
-            id: '123',
+            id: this.state.id,
             markdownText
         });
     }
@@ -162,6 +192,10 @@ class EditorPage extends React.Component {
      * Renders the EditorPage component.
      */
     render() {
+        if (this.state.redirectToMainPage) {
+            return <Redirect to={'/'} />
+        }
+
         return (
             <div>
                 <EditorNavbar 

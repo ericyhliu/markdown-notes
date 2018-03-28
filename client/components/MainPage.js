@@ -21,6 +21,8 @@ class MainPage extends React.Component {
             searchQuery: '',
             addedNewNote: false,
             deletedNote: false,
+            openNoteInEditor: false,
+            openNoteID: '',
             cardSettingsData: {}
         };
         this.handleOnClickSettings = this.handleOnClickSettings.bind(this);
@@ -39,7 +41,9 @@ class MainPage extends React.Component {
     componentWillMount() {
         this.setState(() => ({
             addedNewNote: false,
-            deletedNote: false
+            deletedNote: false,
+            openNoteInEditor: false,
+            openNoteID: ''
         }));
         this.getIndex();
     }
@@ -127,10 +131,15 @@ class MainPage extends React.Component {
     }
 
     /**
-     * Handle open note in editor button card.
+     * Opens the note in editor with the given id.
+     * 
+     * @param {string} id 
      */
     handleOpenNoteInEditor(id) {
-        console.log(id);
+        this.setState(() => ({
+            openNoteInEditor: true,
+            openNoteID: id
+        }));
     }
 
     /**
@@ -173,8 +182,16 @@ class MainPage extends React.Component {
             window.location.reload();
         }
 
-        let visibleCards;
+        if (this.state.openNoteInEditor) {
+            return <Redirect to={{
+                pathname: '/editor',
+                state: {
+                    id: this.state.openNoteID
+                }
+            }} />;
+        }
 
+        let visibleCards;
         if (this.state.files.length >= 0) {
             visibleCards = this.state.files
             .filter((x) => {
@@ -186,11 +203,17 @@ class MainPage extends React.Component {
                         <div className="card">
                             <div className="card-body">
                                 <h4 className="card-title">
-                                { 
-                                    x.title 
-                                }
+                                    <span 
+                                        className="card-note-title"
+                                        onClick={() => {
+                                            this.handleOpenNoteInEditor(x.id);
+                                        }}>
+                                    { 
+                                        x.title 
+                                    }
+                                    </span>
                                 </h4>
-                                <p className="card-text">{ moment(x.dateCreated).format('MM/DD/YYYY') }</p>
+                                <p className="card-text">{ moment(x.dateCreated).format('LL') }</p>
                                 <div className="card-settings-container">
                                     <a 
                                         href="#" 
@@ -281,7 +304,7 @@ class MainPage extends React.Component {
                 </div>
 
                 <AddNewNoteModal
-                    handleAddNewNote={this.handleAddNewNote}
+                    handleAddNewNote={ this.handleAddNewNote }
                 />
 
                 <SettingsModal
@@ -289,9 +312,9 @@ class MainPage extends React.Component {
                 />
 
                 <CardSettingsModal 
-                    cardSettingsData={this.state.cardSettingsData}
-                    handleOpenNoteInEditor={this.handleOpenNoteInEditor}
-                    handleDeleteNote={this.handleDeleteNote}
+                    cardSettingsData={ this.state.cardSettingsData }
+                    handleOpenNoteInEditor={ this.handleOpenNoteInEditor }
+                    handleDeleteNote={ this.handleDeleteNote }
                 />
             </div>
         );

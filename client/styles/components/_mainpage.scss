@@ -41,11 +41,16 @@
 }
 
 .card-settings:hover {
-    color: $indigo;
+    color: $light-blue;
 }
 
 .card-settings-container {
     position: absolute;
     bottom: 1em;
     right: 1em;
+}
+
+.card-note-title:hover {
+    color: $light-blue;
+    cursor: pointer;
 }

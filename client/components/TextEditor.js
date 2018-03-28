@@ -37,7 +37,7 @@ class TextEditor extends React.Component {
                 }}
                 tabIndex="0"
                 suppressContentEditableWarning={true}>
-                { this.state.autosavedText }
+                {  this.state.autosavedText }
             </div>
         );
     }

@@ -8,8 +8,6 @@ class CardSettingsModal extends React.Component {
     }
 
     render() {
-        console.log(this.props.cardSettingsData);
-
         return (
             <div className="modal fade right" id="modal-card-settings" tabIndex="-1" role="dialog" aria-labelledby="modal-card-settings"
                 aria-hidden="true" data-backdrop="false">
