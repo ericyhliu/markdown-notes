@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { HashLoader } from 'react-spinners';
 
 class CardSettingsModal extends React.Component {
 
@@ -38,6 +39,15 @@ class CardSettingsModal extends React.Component {
                                 <p>
                                     This is a Markdown note you created. 
                                 </p>
+                            </div>
+                            
+                            <div className="container-loading">
+                                <div className='sweet-loading loading-download'>
+                                    <HashLoader
+                                    color={'#123abc'} 
+                                    loading={ this.props.loading } 
+                                    />
+                                </div>
                             </div>
                         </div>
                     

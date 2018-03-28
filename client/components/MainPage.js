@@ -25,7 +25,7 @@ class MainPage extends React.Component {
             openNoteInEditor: false,
             openNoteID: '',
             cardSettingsData: {},
-            loading: true
+            loading: false
         };
         this.handleOnClickSettings = this.handleOnClickSettings.bind(this);
         this.getIndex = this.getIndex.bind(this);
@@ -189,11 +189,18 @@ class MainPage extends React.Component {
             return;
         }
 
+        this.setState(() => ({
+            loading: true
+        }));
+
         fetch(`/file/export/${id}`)
         .then((result) => {
             return result.blob();
         })
         .then((result) => {
+            this.setState(() => ({
+                loading: false
+            }));
             FileSaver.saveAs(result, 'download.pdf');
         });
     }

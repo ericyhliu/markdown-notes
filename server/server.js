@@ -107,8 +107,6 @@ app.post('/file/save', (req, res) => {
 });
 
 app.get('/file/export/:id', (req, res) => {
-    console.log(req.params.id);
-
     exportToPDF(req.params.id, (url) => {
         fs.readFile(url, function (err, data){
             if (err) {
