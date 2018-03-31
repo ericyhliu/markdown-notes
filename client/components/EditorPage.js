@@ -20,6 +20,7 @@ class EditorPage extends React.Component {
 
         this.state = {
             id: '',
+            color: '',
             redirectToMainPage: false,
             markdownText: '',
             preloadedText: '',
@@ -212,12 +213,15 @@ class EditorPage extends React.Component {
             return <Redirect to={'/'} />
         }
 
+        console.log('editorpage', this.state.id);
+
         return (
             <div>
                 <EditorNavbar 
                     lastAutosaveTime={ this.state.lastAutosaveTime }
                     handleMenuBarItemClick={ this.handleMenuBarItemClick }
                     handleSaveEditor={ this.handleSaveEditor }
+                    color={ this.state.color }
                 />
 
                 <div className="container-fluid container-editor">

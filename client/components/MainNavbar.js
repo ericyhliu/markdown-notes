@@ -10,9 +10,15 @@ class MainNavbar extends React.Component {
      * Renders the MainNavbar component.
      */
     render() {
+        console.log(this.props.color);
+
         return (
             <div>
-                <nav className="mb-1 navbar fixed-top navbar-expand-lg navbar-dark indigo darken-3">
+                <nav 
+                    className="mb-1 navbar fixed-top navbar-expand-lg navbar-dark navbar-main" 
+                    style={{
+                        backgroundColor: this.props.color
+                    }}>
                     <a className="navbar-brand" href="#">Markdown Notes</a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

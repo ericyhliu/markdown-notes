@@ -54,9 +54,12 @@ class AddNewNoteModal extends React.Component {
                             <div className="text-center mt-4">
                                 <button 
                                     id="btn-create-new-note" 
-                                    className="btn btn-indigo"
+                                    className="btn"
                                     onClick={() => {
                                         this.props.handleAddNewNote(this.state.text);
+                                    }}
+                                    style={{
+                                        background: this.props.color
                                     }}>
                                     Create New Note
                                 </button>

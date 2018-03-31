@@ -17,7 +17,7 @@ class MainPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            color: {},
+            color: '',
             files: [],
             searchQuery: '',
             addedNewNote: false,
@@ -27,7 +27,6 @@ class MainPage extends React.Component {
             cardSettingsData: {},
             loading: false
         };
-        this.handleOnClickSettings = this.handleOnClickSettings.bind(this);
         this.getIndex = this.getIndex.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
         this.handleAddNewNote = this.handleAddNewNote.bind(this);
@@ -35,6 +34,7 @@ class MainPage extends React.Component {
         this.handleOpenNoteInEditor = this.handleOpenNoteInEditor.bind(this);
         this.handleDeleteNote = this.handleDeleteNote.bind(this);
         this.handleExportToPDF = this.handleExportToPDF.bind(this);
+        this.handleChangeColors = this.handleChangeColors.bind(this);
     }
 
     /**
@@ -66,13 +66,6 @@ class MainPage extends React.Component {
                 ...result
             }));
         });
-    }
-
-    /**
-     * Handles user clicks on the settings button, triggers settings modal.
-     */
-    handleOnClickSettings() {
-        console.log('Settings');
     }
 
     /**
@@ -206,6 +199,17 @@ class MainPage extends React.Component {
     }
 
     /**
+     * Changes the accent color of the interface.
+     * 
+     * @param {string} hexColor 
+     */
+    handleChangeColors(hexColor) {
+        this.setState(() => ({
+            color: hexColor
+        }));
+    }
+
+    /**
      * Renders the MainPage component.
      */
     render() {
@@ -213,11 +217,14 @@ class MainPage extends React.Component {
             window.location.reload();
         }
 
+        console.log('mainpage', this.state.color);
+
         if (this.state.openNoteInEditor) {
             return <Redirect to={{
                 pathname: '/editor',
                 state: {
-                    id: this.state.openNoteID
+                    id: this.state.openNoteID,
+                    color: this.state.color
                 }
             }} />;
         }
@@ -273,7 +280,7 @@ class MainPage extends React.Component {
             <div>
                 <div>
                     <MainNavbar 
-                        handleOnClickSettings={ this.handleOnClickSettings }
+                        color={ this.state.color }
                     />
 
                     <div className="container-fluid container-main">
@@ -287,9 +294,13 @@ class MainPage extends React.Component {
                             <div className="col-md-3">
                                 <button 
                                     id="btn-new-note" 
-                                    className="btn btn-indigo" 
+                                    className="btn" 
                                     data-toggle="modal" 
-                                    data-target="#modal-add-new-note">
+                                    data-target="#modal-add-new-note"
+                                    style={{
+                                        backgroundColor: this.state.color
+                                    }}
+                                    >
                                     <i className="fa fa-plus mr-1 icon-add-new-note"></i>
                                     Add New Note
                                 </button>
@@ -336,9 +347,12 @@ class MainPage extends React.Component {
 
                 <AddNewNoteModal
                     handleAddNewNote={ this.handleAddNewNote }
+                    color={ this.state.color }
                 />
 
-                <SettingsModal />
+                <SettingsModal 
+                    handleChangeColors={ this.handleChangeColors }
+                />
 
                 <CardSettingsModal 
                     cardSettingsData={ this.state.cardSettingsData }

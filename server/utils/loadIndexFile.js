@@ -12,10 +12,7 @@ const loadIndexFile = (callback) => {
         // File is corrupt of non-existent, initialize index.json file:
         if (err) {
             const emptyIndex = {
-                color: {
-                    "colorNavbar": "#283593",
-                    "colorInfobar": "#1565C0"
-                },
+                color: "#283593",
                 files: []
             };
 

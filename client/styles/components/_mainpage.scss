@@ -69,3 +69,80 @@
     padding-top: 1em;
     padding-left: 45%;
 }
+
+.color-palette-container {
+    margin-top: 1em;
+}
+
+.color-palette-item {
+    border-style: solid;
+    border-color: #fff;
+    border-width: 5px;
+    padding-right: 4em;
+    padding-bottom: 4em;
+    cursor: pointer;
+}
+
+.palette-red {
+    background-color: #F44336;
+}
+
+.palette-pink {
+    background-color: #E91E63;
+}
+
+.palette-purple {
+    background-color: #9C27B0;
+}
+
+.palette-deep-purple {
+    background-color: #673AB7;
+}
+
+.palette-indigo {
+    background-color: #3F51B5;
+}
+
+.palette-blue {
+    background-color: #2196F3;
+}
+
+.palette-light-blue {
+    background-color: #03A9F4;
+}
+
+.palette-cyan {
+    background-color: #00BCD4;
+}
+
+.palette-teal {
+    background-color: #009688;
+}
+
+.palette-green {
+    background-color: #4CAF50;
+}
+
+.palette-light-green {
+    background-color: #8BC34A;
+}
+
+.palette-lime {
+    background-color: #CDDC39;
+}
+
+.palette-yellow {
+    background-color: #FFEB3B;
+}
+
+.palette-amber {
+    background-color: #FFC107;
+}
+
+.palette-orange {
+    background-color: #FF9800;
+}
+
+.palette-deep-orange {
+    background-color: #FF5722;
+}

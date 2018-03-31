@@ -24,8 +24,15 @@ class EditorNavbar extends React.Component {
             ["latex", "superscript"]
         ];
 
+        console.log('navbar', this.props.color)
+
         return (
-            <nav id="editor-navbar" className="mb-1 navbar fixed-top navbar-expand-xl navbar-dark indigo darken-3">
+            <nav 
+                id="editor-navbar" 
+                className="mb-1 navbar fixed-top navbar-expand-xl navbar-dark"
+                style={{
+                    backgroundColor: this.props.color
+                }}>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-3" aria-controls="navbarSupportedContent-3" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
