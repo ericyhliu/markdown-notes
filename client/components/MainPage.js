@@ -135,7 +135,8 @@ class MainPage extends React.Component {
     handleOpenNoteInEditor(id) {
         this.setState(() => ({
             openNoteInEditor: true,
-            openNoteID: id
+            openNoteID: id,
+            color: this.state.color
         }));
     }
 
@@ -199,14 +200,34 @@ class MainPage extends React.Component {
     }
 
     /**
-     * Changes the accent color of the interface.
+     * Changes the color scheme of the interface.
      * 
      * @param {string} hexColor 
      */
     handleChangeColors(hexColor) {
-        this.setState(() => ({
-            color: hexColor
-        }));
+        // Saves new color scheme to file:
+        fetch('/file/change-color-scheme', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                data: hexColor
+            })
+        })
+        .then((resultPromise) => {
+            return resultPromise.json();
+        })
+        .then((result) => {
+            if (result.err) {
+                return;
+            }
+
+            this.setState(() => ({
+                color: hexColor
+            }));
+        });
     }
 
     /**
@@ -217,14 +238,11 @@ class MainPage extends React.Component {
             window.location.reload();
         }
 
-        console.log('mainpage', this.state.color);
-
         if (this.state.openNoteInEditor) {
             return <Redirect to={{
                 pathname: '/editor',
                 state: {
-                    id: this.state.openNoteID,
-                    color: this.state.color
+                    id: this.state.openNoteID
                 }
             }} />;
         }

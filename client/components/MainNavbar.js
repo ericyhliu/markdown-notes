@@ -10,8 +10,6 @@ class MainNavbar extends React.Component {
      * Renders the MainNavbar component.
      */
     render() {
-        console.log(this.props.color);
-
         return (
             <div>
                 <nav 

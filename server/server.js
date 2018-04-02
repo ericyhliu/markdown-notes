@@ -13,6 +13,7 @@ const { deleteNote } = require('./utils/deleteNote');
 const { loadNote } = require('./utils/loadNote');
 const { saveNote } = require('./utils/saveNote');
 const { exportToPDF } = require('./utils/exportToPDF');
+const { changeColorScheme } = require('./utils/changeColorScheme'); 
 
 const publicPath = path.join(__dirname, '..', 'public');
 const port = process.env.PORT || 5000;
@@ -108,7 +109,7 @@ app.post('/file/save', (req, res) => {
 
 app.get('/file/export/:id', (req, res) => {
     exportToPDF(req.params.id, (url) => {
-        fs.readFile(url, function (err, data){
+        fs.readFile(url, (err, data) => {
             if (err) {
                 res.setHeader('Content-Type', 'application/json');
                 return res.send(JSON.stringify({
@@ -119,6 +120,22 @@ app.get('/file/export/:id', (req, res) => {
             res.contentType("application/pdf");
             res.end(data);
          });
+    });
+});
+
+app.post('/file/change-color-scheme', (req, res) => {
+    changeColorScheme(req.body.data, (err, data) => {
+        res.setHeader('Content-Type', 'application/json');
+
+        if (err) {
+            return res.send(JSON.stringify({
+                error: 'There was an error saving the new color scheme.'
+            }));
+        }
+
+        return res.send(JSON.stringify({
+            success: 'New color scheme successfully saved.'
+        }));
     });
 });
 

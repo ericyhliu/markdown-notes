@@ -46,7 +46,18 @@ class EditorPage extends React.Component {
                 redirectToMainPage: true
             }));
             return;
-        } 
+        }
+
+        // Load color from file:
+        fetch('/file/settings')
+        .then((resultPromise) => {
+            return resultPromise.json();
+        })
+        .then((result) => {
+            this.setState(() => ({
+                color: result.color
+            }));
+        });
 
         const currentStateID = this.props.location.state.id;
 
@@ -212,8 +223,6 @@ class EditorPage extends React.Component {
         if (this.state.redirectToMainPage) {
             return <Redirect to={'/'} />
         }
-
-        console.log('editorpage', this.state.id);
 
         return (
             <div>

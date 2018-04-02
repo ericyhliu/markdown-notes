@@ -24,12 +24,10 @@ class EditorNavbar extends React.Component {
             ["latex", "superscript"]
         ];
 
-        console.log('navbar', this.props.color)
-
         return (
             <nav 
                 id="editor-navbar" 
-                className="mb-1 navbar fixed-top navbar-expand-xl navbar-dark"
+                className={`mb-1 navbar fixed-top navbar-expand-xl navbar-dark`}
                 style={{
                     backgroundColor: this.props.color
                 }}>

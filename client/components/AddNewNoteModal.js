@@ -48,8 +48,7 @@ class AddNewNoteModal extends React.Component {
                                     className="form-control" 
                                     placeholder="Enter note title..."
                                     onChange={ this.handleChangeText }
-                                    value={ this.state.text }
-                                    />
+                                    value={ this.state.text }/>
                             </div>
                             <div className="text-center mt-4">
                                 <button 

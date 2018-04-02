@@ -56,7 +56,7 @@ class SettingsModal extends React.Component {
 
                         <div className="modal-body">
                             <div className="text-left">
-                                <h4>Change Accent Color</h4>
+                                <h4>Change Color Scheme</h4>
 
                                 <table className="color-palette-container">
                                     <tbody>
