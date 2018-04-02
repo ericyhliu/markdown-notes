@@ -43,7 +43,7 @@ will be saved to a directory called `user-data`. Exported PDFs are saved in a te
 
 ## Testing/Dev
 
-Uses `webpack`, `babel` to transpile the JSX to regular JavaScript, `webpack-live-server` and 
+Uses `webpack`, `babel` to transpile the JSX to regular JavaScript, `webpack-dev-server` and 
 `nodemon` for automatic reloading of client and server. In the terminal, run:
 
 ```
