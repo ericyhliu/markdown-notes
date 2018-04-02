@@ -2,6 +2,7 @@
  * Exports the given markdown file to PDF.
  * 
  * @param {string} id 
+ * @param {Function} callback
  */
 const fs = require('fs');
 const path = require('path');

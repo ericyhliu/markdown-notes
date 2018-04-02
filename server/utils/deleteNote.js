@@ -2,6 +2,7 @@
  * Deletes the note with the given id.
  * 
  * @param {string} id 
+ * @param {Function} callback
  */
 const fs = require('fs');
 const path = require('path');

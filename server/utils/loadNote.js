@@ -2,6 +2,7 @@
  * Load note with given name id from user-data directory.
  * 
  * @param {string} id 
+ * @param {Function} callback
  */
 
 const fs = require('fs');

@@ -2,6 +2,9 @@
  * Creates a new note with uuid as file name, and returns an Object with 
  * data corresponding to the note (i.e. title, id, dateCreated), then updates
  * the index file.
+ * 
+ * @param {string} title
+ * @param {Function} callback
  */
 
 const fs = require('fs');

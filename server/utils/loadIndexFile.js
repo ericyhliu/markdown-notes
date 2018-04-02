@@ -1,6 +1,8 @@
 /**
  * Load the settings/content index file from the user-data directory, but if 
  * this file is corrupt or non-existent, it creates initializes it.
+ * 
+ * @param {Function} callback
  */
 const fs = require('fs');
 const path = require('path');
